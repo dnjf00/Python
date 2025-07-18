@@ -1,0 +1,37 @@
+menu = {
+    "americano": 4500,
+    "latte": 5000,
+    "cappuccino": 5500,
+    "mocha": 6000,
+    "tea": 3500
+}
+
+# 1. 메뉴와 가격을 출력
+# 2. 사용자가 주문할 음료와 수량 입력
+# 3. 10000원 이상 주문시 10% 할인
+# 4. 총 금액 계산 및 출력
+# 5. 잘못된 메뉴 입력시 다시 입력 요청
+
+
+for item, price in menu.items():
+    print(f"{item}: {price}원")
+order_count = 0
+total_sum_price = 0
+
+order = input("주문할 음료를 적어주세요:")
+if order not in menu: 
+    print("없는 메뉴입니다.")
+
+
+while True:
+  quantity = input("음료 몇 잔을 원하시나요: ")  
+  if quantity.isdigit() and int(quantity) > 0:
+    total_price = menu[order] * int(quantity)
+    print(total_price)
+    break
+
+if total_price >= 1000:
+  dc = total_price * 0.1
+  dc_price = total_price - dc
+
+print(dc_price)
