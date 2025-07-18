@@ -1,0 +1,107 @@
+# 학생들의 시험 점수를 입력받아 관리하는 프로그램
+# 1. 학생 수만큼 이름과 점수 입력받기
+# 2. 반 평균 계산
+# 3. 평균보다 높은 학생과 낮은 학생 분류
+# 4. 최고점과 최저점 학생 찾기
+# 5. 점수별 등급 분포 (A:90+, B:80+, C:70+, D:60+, F:60미만) 계산
+
+student_count = int(input("학생 수를 입력하세요: "))
+
+#1
+students_list = []
+sum = 0
+
+for s in range(student_count):
+  student = input("학생 이름 입력: ")
+  scores = input("학생 점수 입력: ")
+  students_list.append({student: scores})
+
+
+print(students_list)
+
+#2
+for student in students_list:
+  for value in student.values():
+    sum += int(value)
+    average = sum / student_count
+
+print(f"평균: {average}")
+
+print("===============")
+
+#3
+high_student = []
+
+for student_dict in students_list:
+    for student, score in student_dict.items():
+        if int(score) > average:
+            high_student.append(student)
+
+if high_student:
+    print("평균보다 높은 학생: ")
+    for student in high_student:
+        print(student)
+
+low_student = []
+
+for student_dict in students_list:
+  for student, score in student_dict.items():
+    if int(score) < average:
+      low_student.append(student)
+
+if low_student:
+  print("평균보다 낮은 학생: ")
+  for student in low_student:
+    print(student)
+
+#4 (GPT)
+highest_score = 0
+lowest_score = 100
+
+top_student = ""
+bottom_student = ""
+
+for student_dict in students_list:
+    for student, score in student_dict.items():
+        score = int(score)
+
+        if score > highest_score:
+            highest_score = score
+            top_student = student
+
+        if score < lowest_score:
+            lowest_score = score
+            bottom_student = student
+
+print("===============")
+print(f"최고점 학생: {top_student}")
+print(f"최저점 학생: {bottom_student}")
+
+#5 (GPT)
+grade_count = {
+    "A": 0,
+    "B": 0,
+    "C": 0,
+    "D": 0,
+    "F": 0
+}
+
+for student_dict in students_list:
+    for student, score in student_dict.items():
+        score = int(score)
+
+        if score >= 90:
+            grade_count["A"] += 1
+        elif score >= 80:
+            grade_count["B"] += 1
+        elif score >= 70:
+            grade_count["C"] += 1
+        elif score >= 60:
+            grade_count["D"] += 1
+        else:
+            grade_count["F"] += 1
+
+print("===============")
+print("등급 분포:")
+for grade, count in grade_count.items():
+    print(f"{grade}등급: {count}명")
